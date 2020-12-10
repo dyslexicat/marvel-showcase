@@ -2,6 +2,7 @@ import React, { useEffect, useContext } from "react";
 import { Context } from "../context/store";
 import CharacterCard from "../components/CharacterCard";
 import Pagination from "../components/Pagination";
+import { Link } from "react-router-dom";
 
 const Home = () => {
   const API_KEY = process.env.REACT_APP_MARVEL_API_KEY;
@@ -33,18 +34,21 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className="main-div">
       <h1 style={{ textAlign: "center" }}>Marvel Characters</h1>
       <div className="wrapper">
         {characters.length === 0 ? (
           <p>Loading...</p>
         ) : (
           characters.map((character) => (
-            <CharacterCard
-              key={character.id}
-              name={character.name}
-              imgSrc={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-            />
+            <Link to={`/hero/${character.id}`} key={character.id}>
+              {
+                <CharacterCard
+                  name={character.name}
+                  imgSrc={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                />
+              }
+            </Link>
           ))
         )}
       </div>
