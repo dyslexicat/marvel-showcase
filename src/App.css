@@ -4,6 +4,13 @@ body {
   background-color: #111d4a;
 }
 
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #daddd8;
+}
+
 .main-div {
   width: 70%;
   margin: 0 auto;
@@ -15,10 +22,12 @@ body {
   grid-gap: 1em;
 }
 
-.pagination {
-  display: flex;
+.hero-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
 }
 
-.pagination li {
-  list-style-type: none;
+a {
+  text-decoration: none;
 }

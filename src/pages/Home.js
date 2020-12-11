@@ -1,12 +1,12 @@
 import React, { useEffect, useContext } from "react";
 import { Context } from "../context/store";
 import CharacterCard from "../components/CharacterCard";
-import Pagination from "../components/Pagination";
-import { Link } from "react-router-dom";
+import usePageBottom from "../hooks/usePageBottom";
 
 const Home = () => {
   const API_KEY = process.env.REACT_APP_MARVEL_API_KEY;
   const [{ offset, characters }, dispatch] = useContext(Context);
+  const isPageBottom = usePageBottom();
   //const [characters, setCharacters] = useState([]);
 
   const fetchCharacters = async () => {
@@ -25,13 +25,27 @@ const Home = () => {
     dispatch({ type: "GET_CHARACTERS", payload: json.data.results });
   };
 
+  // using the pageBottom hook to change offset and get more content
   useEffect(() => {
-    fetchCharacters();
+    if (isPageBottom) {
+      console.log(offset + 1);
+      dispatch({ type: "SET_OFFSET", payload: offset + 1 });
+    }
+  }, [isPageBottom]);
+
+  // check if we are at the bottom of the page and the offset changed so we load more characters
+  useEffect(() => {
+    if (isPageBottom) {
+      fetchCharacters();
+    }
   }, [offset]);
 
-  const paginate = (pageNumber) => {
-    dispatch({ type: "SET_OFFSET", payload: pageNumber });
-  };
+  // if there are no characters loaded we want to fetch the initial characters
+  useEffect(() => {
+    if (!characters || !characters.length) {
+      fetchCharacters();
+    }
+  }, []);
 
   return (
     <div className="main-div">
@@ -41,23 +55,18 @@ const Home = () => {
           <p>Loading...</p>
         ) : (
           characters.map((character) => (
-            <Link to={`/hero/${character.id}`} key={character.id}>
-              {
-                <CharacterCard
-                  name={character.name}
-                  imgSrc={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                />
-              }
-            </Link>
+            <CharacterCard
+              key={character.id}
+              id={character.id}
+              name={character.name}
+              imgSrc={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+            />
           ))
         )}
       </div>
-      {characters.length === 0 ? (
-        ""
-      ) : (
-        <Pagination paginate={paginate} totalCharacters={100} />
-      )}
-      <footer>"Data provided by Marvel. © 2014 Marvel"</footer>
+      <footer style={{ textAlign: "center" }}>
+        "Data provided by Marvel. © 2014 Marvel"
+      </footer>
     </div>
   );
 };

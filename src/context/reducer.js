@@ -3,9 +3,13 @@ const Reducer = (state, action) => {
     case "GET_CHARACTERS":
       return {
         ...state,
-        characters: action.payload,
+        characters: state.characters.concat(action.payload),
       };
     case "SET_OFFSET":
+      if (state.offset < 1 || state.offset > 20) {
+        return;
+      }
+      
       return {
         ...state,
         offset: action.payload

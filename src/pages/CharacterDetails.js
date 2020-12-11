@@ -2,16 +2,16 @@ import React, { useContext, useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { Context } from "../context/store";
 
-const HeroDetails = () => {
-  const [hero, setHero] = useState(null);
-  const { heroID } = useParams();
+const CharacterDetails = () => {
+  const [character, setCharacter] = useState(null);
+  const { characterID } = useParams();
   const [{ characters }] = useContext(Context);
 
   useEffect(() => {
-    const filtered = characters.filter((hero) => hero.id === parseInt(heroID));
-    const hero = filtered[0];
+    const filtered = characters.filter((character) => character.id === parseInt(characterID));
+    const character = filtered[0];
 
-    setHero(hero);
+    setCharacter(character);
   }, [characters]);
 
   const getComics = () => {
@@ -20,7 +20,7 @@ const HeroDetails = () => {
 
     // use regex to filter hero comics by year
     // I used a generalized regex so that there aren't any problems
-    hero.comics.items.forEach((comic, idx) => {
+    character.comics.items.forEach((comic, idx) => {
       const match = comic.name.match(yearRegex);
       if (match) {
         const yearInt = parseInt(match[0].slice(1, match[0].length - 1));
@@ -47,7 +47,7 @@ const HeroDetails = () => {
     const ids = years.slice(0, 10).map((item) => item[0]);
     const comics = [];
     for (const id of ids) {
-      comics.push(hero.comics.items[id]);
+      comics.push(character.comics.items[id]);
     }
 
     return comics;
@@ -56,23 +56,24 @@ const HeroDetails = () => {
   return (
     <div className="main-div">
       <Link to="/">Go back Home</Link>
-      {hero && (
-        <>
-          <h2>{hero.name}</h2>
+      {!character ? (
+        <p>There is no info for this Marvel Character</p>
+      ) : (
+        <div className="hero-details">
+          <h2>{character.name}</h2>
           <img
-            src={`${hero.thumbnail.path}.${hero.thumbnail.extension}`}
-            alt={hero.name}
-            height="350px"
-            width="350px"
+            src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+            alt={character.name}
+            className="hero-image"
           />
-          <p>{hero.description}</p>
-          {getComics().map((comic) => (
-            <div>{comic.name}</div>
+          <p>{character.description}</p>
+          {getComics().map((comic, id) => (
+            <div key={id}>{comic.name}</div>
           ))}
-        </>
+        </div>
       )}
     </div>
   );
 };
 
-export default HeroDetails;
+export default CharacterDetails;

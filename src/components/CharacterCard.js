@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-const CharacterCard = ({ name, imgSrc }) => {
+const CharacterCard = ({ id, name, imgSrc }) => {
   return (
-    <div>
+    <Link to={`/character/${id}`} key={id} className="card">
       <h2>{name}</h2>
-      <img src={imgSrc} alt={name} height="200px" width="200px" />
-    </div>
+      <img src={imgSrc} alt={name} height="250px" />
+    </Link>
   );
 };
 

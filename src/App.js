@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Store from "./context/store";
-import HeroDetails from "./pages/HeroDetails";
+import CharacterDetails from "./pages/CharacterDetails";
 import Home from "./pages/Home";
 import "./App.css";
 
@@ -11,7 +11,7 @@ const App = () => {
     <Store>
       <Router>
         <Route exact path="/" component={Home} />
-        <Route path="/hero/:heroID" component={HeroDetails} />
+        <Route path="/character/:characterID" component={CharacterDetails} />
       </Router>
     </Store>
   );
