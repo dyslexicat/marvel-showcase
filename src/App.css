@@ -11,6 +11,10 @@ body {
   color: #daddd8;
 }
 
+.card:hover {
+  color: #8a3033;
+}
+
 .main-div {
   width: 80%;
   margin: 0 auto;
@@ -30,7 +34,7 @@ body {
 }
 
 .home-button {
-  color: #F4E9CD;
+  color: #f4e9cd;
   display: flex;
   gap: 8px;
 }
