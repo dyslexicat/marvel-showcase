@@ -4,6 +4,7 @@ import Reducer from "./reducer";
 const initialState = {
   offset: 1,
   characters: [],
+  maxOffset: null
 };
 
 const Store = ({ children }) => {

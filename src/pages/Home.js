@@ -5,7 +5,7 @@ import usePageBottom from "../hooks/usePageBottom";
 
 const Home = () => {
   const API_KEY = process.env.REACT_APP_MARVEL_API_KEY;
-  const [{ offset, characters }, dispatch] = useContext(Context);
+  const [{ offset, characters, maxOffset }, dispatch] = useContext(Context);
   const isPageBottom = usePageBottom();
   //const [characters, setCharacters] = useState([]);
 
@@ -22,6 +22,11 @@ const Home = () => {
     }
 
     const json = await response.json();
+
+    if (!maxOffset) {
+      dispatch({type: "SET_MAX_OFFSET", payload: Math.ceil(json.data.total / 30)})
+    }
+
     dispatch({ type: "GET_CHARACTERS", payload: json.data.results });
   };
 
@@ -34,6 +39,7 @@ const Home = () => {
   }, [isPageBottom]);
 
   // check if we are at the bottom of the page and the offset changed so we load more characters
+  // basically a fetchMore function
   useEffect(() => {
     if (isPageBottom) {
       fetchCharacters();
@@ -64,7 +70,7 @@ const Home = () => {
           ))
         )}
       </div>
-      <footer style={{ textAlign: "center" }}>
+      <footer style={{ textAlign: "center", marginTop: "20px" }}>
         "Data provided by Marvel. © 2014 Marvel"
       </footer>
     </div>

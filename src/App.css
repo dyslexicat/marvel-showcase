@@ -12,14 +12,15 @@ body {
 }
 
 .main-div {
-  width: 70%;
+  width: 80%;
   margin: 0 auto;
+  margin-top: 1em;
 }
 
 .wrapper {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  grid-gap: 1em;
+  grid-gap: 2em;
 }
 
 .hero-image {
@@ -28,6 +29,17 @@ body {
   height: auto;
 }
 
+.home-button {
+  color: #F4E9CD;
+  display: flex;
+  gap: 8px;
+}
+
 a {
   text-decoration: none;
+}
+
+.error-message {
+  font-size: 3em;
+  text-align: center;
 }

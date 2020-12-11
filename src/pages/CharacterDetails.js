@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Context } from "../context/store";
+import HomeButton from "../components/HomeButton";
 
 const CharacterDetails = () => {
   const [character, setCharacter] = useState(null);
@@ -8,12 +9,17 @@ const CharacterDetails = () => {
   const [{ characters }] = useContext(Context);
 
   useEffect(() => {
-    const filtered = characters.filter((character) => character.id === parseInt(characterID));
+    const filtered =  characters.filter(
+      (character) => character.id === parseInt(characterID)
+    );
     const character = filtered[0];
 
     setCharacter(character);
-  }, [characters]);
+  }, []);
 
+  // I don't want to send a request to the MARVEL API everytime a user clicks details
+  // that is why I wrote this function like this. Otherwise, we can use the
+  // /v1/public/characters/{characterId}/comics endpoint
   const getComics = () => {
     const yearRegex = /\([0-9]{4}\)/;
     const years = [];
@@ -55,9 +61,9 @@ const CharacterDetails = () => {
 
   return (
     <div className="main-div">
-      <Link to="/">Go back Home</Link>
+      <HomeButton character={character} />
       {!character ? (
-        <p>There is no info for this Marvel Character</p>
+        <p className="error-message">There is no info for this Marvel Character</p>
       ) : (
         <div className="hero-details">
           <h2>{character.name}</h2>
