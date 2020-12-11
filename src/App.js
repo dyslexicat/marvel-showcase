@@ -11,8 +11,8 @@ const App = () => {
     <Store>
       <Router>
         <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/character/:characterID" component={CharacterDetails} />
+          <Route exact path="/marvel-showcase/" component={Home} />
+          <Route path="/marvel-showcase/character/:characterID" component={CharacterDetails} />
           <Route component={NotFound} />
         </Switch>
       </Router>

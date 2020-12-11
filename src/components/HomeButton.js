@@ -5,12 +5,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const HomeButton = ({ character }) => {
   return !character ? (
-    <Link to="/" className="home-button">
+    <Link to="/marvel-showcase/" className="home-button">
       <FontAwesomeIcon icon={faHome} style={{ color: "#daddd8" }} />
       <span>Go back Home</span>
     </Link>
   ) : (
-    <Link to={`/#${character.id}`} className="home-button">
+    <Link to={`/marvel-showcase/#${character.id}`} className="home-button">
       <FontAwesomeIcon icon={faHome} style={{ color: "#daddd8" }} />
       <span>Go back Home</span>
     </Link>

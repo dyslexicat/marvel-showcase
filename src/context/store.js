@@ -1,6 +1,7 @@
 import React, { createContext, useReducer } from "react";
 import Reducer from "./reducer";
 
+// we want to have the currentOffset, an array of characters and the maxOffset
 const initialState = {
   offset: 1,
   characters: [],

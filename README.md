@@ -1,3 +1,14 @@
+# marvel-api-showcase
+
+## description
+
+This is a simple showcase project I have done for a technical interview.
+Showcases ***infinite scrolling*** and ***API usage***.
+
+It was started with CRA and you can find CRA information underneath the following line.
+
+-----------------------------------------------------------
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

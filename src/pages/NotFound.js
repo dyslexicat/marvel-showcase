@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// generic not found (404) page for unknown routes
 const NotFound = () => {
   return (
     <div className="main-div">

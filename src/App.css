@@ -12,7 +12,7 @@ body {
 }
 
 .card:hover {
-  color: #8a3033;
+  color: #92140C;
 }
 
 .main-div {
@@ -46,4 +46,5 @@ a {
 .error-message {
   font-size: 3em;
   text-align: center;
+  color: #92140C;
 }

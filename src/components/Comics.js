@@ -5,25 +5,30 @@ const Comics = ({ characterID }) => {
   const API_KEY = process.env.REACT_APP_MARVEL_API_KEY;
   const [comics, setComics] = useState(null);
   const [isLoading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const fetchComics = async () => {
-    const startDate = "2015-01-01";
-    const today = new Date().toISOString().split("T", 1)[0];
-    const dateToSend = `${startDate}%2C${today}`;
-    const url = `https://gateway.marvel.com:443/v1/public/characters/${characterID}/comics?format=comic&formatType=comic&dateRange=${dateToSend}&orderBy=-focDate&apikey=${API_KEY}`;
+    try {
+      const startDate = "2015-01-01";
+      const today = new Date().toISOString().split("T", 1)[0];
+      const dateToSend = `${startDate}%2C${today}`;
+      const url = `https://gateway.marvel.com:443/v1/public/characters/${characterID}/comics?format=comic&formatType=comic&dateRange=${dateToSend}&orderBy=-onsaleDate&apikey=${API_KEY}`;
+      const response = await fetch(url);
 
-    const response = await fetch(url);
+      if (!response.ok) {
+        const message = `An error has occured: ${response.status}`;
+        throw new Error(message);
+      }
 
-    if (!response.ok) {
-      const message = `An error has occured: ${response.status}`;
-      throw new Error(message);
+      const json = await response.json();
+
+      const comics = json.data.results.map((comic) => comic.title);
+      setComics(comics.slice(0, 10));
+      setLoading(false);
+    } catch (err) {
+      console.log(err)
+      setErrorMsg("There was a problem with the service.")
     }
-
-    const json = await response.json();
-
-    const comics = json.data.results.map((comic) => comic.title);
-    setComics(comics.slice(0, 10));
-    setLoading(false);
   };
 
   useEffect(() => {
@@ -32,6 +37,7 @@ const Comics = ({ characterID }) => {
 
   return (
     <div>
+      {errorMsg && <p>{errorMsg}</p>}
       {isLoading ? (
         <p>Loading Comics</p>
       ) : comics.length === 0 ? (
