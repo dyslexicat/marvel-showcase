@@ -1,0 +1,2 @@
+body{font-family:Roboto Mono;background-color:#111d4a}.card,body{color:#daddd8}.card{display:flex;flex-direction:column;justify-content:space-between}.card:hover{color:#92140c}.main-div{width:80%;margin:1em auto 0}.wrapper{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));grid-gap:2em}.hero-image{width:100%;max-width:350px;height:auto}.home-button{color:#f4e9cd;display:flex;grid-gap:8px;gap:8px}a{text-decoration:none}.error-message{font-size:3em;text-align:center;color:#92140c}
+/*# sourceMappingURL=main.402ede09.chunk.css.map */
